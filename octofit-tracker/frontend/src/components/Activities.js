@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-
 const Activities = () => {
   const [activities, setActivities] = useState([]);
   const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/activities/`;
@@ -17,13 +15,32 @@ const Activities = () => {
   }, [apiUrl]);
 
   return (
-    <div>
-      <h2>Activities</h2>
-      <ul>
-        {activities.map((activity, idx) => (
-          <li key={idx}>{JSON.stringify(activity)}</li>
-        ))}
-      </ul>
+    <div className="card mt-4">
+      <div className="card-body">
+        <h2 className="card-title display-6 mb-4">Activities</h2>
+        <div className="table-responsive">
+          <table className="table table-striped table-bordered">
+            <thead className="table-dark">
+              <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Type</th>
+                <th>Duration (min)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {activities.map((activity, idx) => (
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
+                  <td>{activity.user?.name || activity.user || '-'}</td>
+                  <td>{activity.type}</td>
+                  <td>{activity.duration}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-
 const Users = () => {
   const [users, setUsers] = useState([]);
   const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/users/`;
@@ -17,13 +15,32 @@ const Users = () => {
   }, [apiUrl]);
 
   return (
-    <div>
-      <h2>Users</h2>
-      <ul>
-        {users.map((user, idx) => (
-          <li key={idx}>{JSON.stringify(user)}</li>
-        ))}
-      </ul>
+    <div className="card mt-4">
+      <div className="card-body">
+        <h2 className="card-title display-6 mb-4">Users</h2>
+        <div className="table-responsive">
+          <table className="table table-striped table-bordered">
+            <thead className="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Team</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user, idx) => (
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{user.team?.name || user.team || '-'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
